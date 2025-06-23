@@ -3,7 +3,8 @@ package router
 import (
 	"net/http"
 	"github.com/gorilla/mux"
-	"movie-discovery-app/controllers"
+	// "movie-discovery-app/controllers"
+	"backend/controllers"
 )
 
 func SetupRoutes() *mux.Router {
