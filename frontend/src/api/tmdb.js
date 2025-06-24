@@ -1,4 +1,4 @@
-const API_KEY = 'c13756a25f0e1371569a710927cc1553'; // This is a public key for educational purposes
+const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = 'https://api.themoviedb.org/3';
 export const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 export const BACKDROP_URL = 'https://image.tmdb.org/t/p/w1280';
@@ -20,7 +20,7 @@ export const fetchTrending = () => {
 };
 
 export const searchContent = (query) => {
-    return fetchAPI(`/search/multi&query=${encodeURIComponent(query)}`);
+    return fetchAPI(`/search/multi?query=${encodeURIComponent(query)}`);
 };
 
 export const fetchDetails = (id, type) => {
