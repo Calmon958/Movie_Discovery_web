@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"movie-discovery-app/router"
+	"backend/router"
 )
 
 func main() {
