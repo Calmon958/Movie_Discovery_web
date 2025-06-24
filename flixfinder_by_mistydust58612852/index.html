@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlixFinder</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>FlixFinder</h1>
+            <nav>
+                <a href="#" id="trending-link" class="active">Trending</a>
+                <a href="#" id="watchlist-link">My Watchlist</a>
+            </nav>
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search for movies & TV shows...">
+                <button id="search-button">Search</button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="container">
+        <!-- Content will be injected here by JavaScript -->
+    </main>
+
+    <div id="modal-container" class="modal-container">
+        <!-- Modal content will be injected here -->
+    </div>
+
+    <script type="importmap">
+    {
+      "imports": {
+        "lit-html": "https://cdn.jsdelivr.net/npm/lit-html@3.1.2/lit-html.js",
+        "lit-html/": "https://cdn.jsdelivr.net/npm/lit-html@3.1.2/"
+      }
+    }
+    </script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
