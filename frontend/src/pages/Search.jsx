@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { searchContent } from '../api/tmdb'
 import MovieCard from '../components/MovieCard'
 
 function Search() {
@@ -28,37 +28,33 @@ function Search() {
     const fetchResults = async () => {
       setLoading(true)
       try {
-        const res = await axios.get(`http://localhost:8000/api/search?query=${debouncedQuery}`)
-        setResults(res.data.results || [])
+        const data = await searchContent(debouncedQuery)
+        if (data && data.results) {
+          // Filter results based on searchType and remove people
+          let filteredResults = data.results.filter(item => 
+            item.media_type !== 'person' && item.poster_path
+          )
+          
+          if (searchType !== 'all') {
+            filteredResults = filteredResults.filter(item => 
+              item.media_type === searchType
+            )
+          }
+          
+          setResults(filteredResults)
+        } else {
+          setResults([])
+        }
       } catch (err) {
         console.error('Search error:', err)
-        // Mock search results for demonstration
-        const mockResults = [
-          {
-            id: 1,
-            title: "The Dark Knight",
-            poster_path: "/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
-            vote_average: 9.0,
-            release_date: "2008-07-18"
-          },
-          {
-            id: 2,
-            title: "Inception",
-            poster_path: "/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
-            vote_average: 8.8,
-            release_date: "2010-07-16"
-          }
-        ].filter(movie => 
-          movie.title.toLowerCase().includes(debouncedQuery.toLowerCase())
-        )
-        setResults(mockResults)
+        setResults([])
       } finally {
         setLoading(false)
       }
     }
 
     fetchResults()
-  }, [debouncedQuery])
+  }, [debouncedQuery, searchType])
 
 return (
   <div className="min-h-screen py-8 sm:py-12 lg:py-16 netflix-hero-gradient">
