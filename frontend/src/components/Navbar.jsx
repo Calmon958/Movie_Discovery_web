@@ -21,13 +21,13 @@ function Navbar() {
   const isActive = (path) => location.pathname === path
 
   return (
-    <nav className="bg-gray-900/95 backdrop-blur-sm border-b border-gray-800 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="text-3xl font-bold bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent">
-              🎬 MovieFlix
+    <nav className="netflix-glass sticky top-0 z-50 transition-all duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16 sm:h-18">
+          {/* Netflix-style Logo */}
+          <Link to="/" className="flex items-center space-x-3 group">
+            <div className="text-2xl sm:text-3xl font-black netflix-gradient group-hover:animate-pulse transition-all duration-300">
+              MOVIEFLIX
             </div>
           </Link>
 
@@ -35,55 +35,62 @@ function Navbar() {
           <div className="hidden md:flex items-center space-x-8">
             <Link 
               to="/" 
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`text-sm font-medium transition-all duration-200 hover:text-netflix-light-gray ${
                 isActive('/') 
-                  ? 'bg-red-600 text-white' 
-                  : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                  ? 'text-white font-bold' 
+                  : 'text-netflix-light-gray'
               }`}
             >
               Home
             </Link>
             <Link 
               to="/search" 
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`text-sm font-medium transition-all duration-200 hover:text-netflix-light-gray ${
                 isActive('/search') 
-                  ? 'bg-red-600 text-white' 
-                  : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                  ? 'text-white font-bold' 
+                  : 'text-netflix-light-gray'
               }`}
             >
               Search
             </Link>
             <Link 
               to="/watchlist" 
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors relative ${
+              className={`text-sm font-medium transition-all duration-200 hover:text-netflix-light-gray relative ${
                 isActive('/watchlist') 
-                  ? 'bg-red-600 text-white' 
-                  : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                  ? 'text-white font-bold' 
+                  : 'text-netflix-light-gray'
               }`}
             >
-              Watchlist
+              My List
               {watchlist.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                  {watchlist.length}
+                <span className="absolute -top-2 -right-3 bg-netflix-red text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold animate-pulse">
+                  {watchlist.length > 9 ? '9+' : watchlist.length}
                 </span>
               )}
             </Link>
             
-            {/* Theme Toggle */}
-            <button
-              onClick={() => setDark(!dark)}
-              className="p-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
-              title={dark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-            >
-              {dark ? '☀️' : '🌙'}
-            </button>
+            {/* Profile/Theme Toggle */}
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={() => setDark(!dark)}
+                className="p-2 rounded-full text-netflix-light-gray hover:text-white transition-all duration-200"
+                title={dark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              >
+                <span className="text-lg">{dark ? '☀️' : '🌙'}</span>
+              </button>
+              
+              {/* Netflix-style profile icon */}
+              <div className="w-8 h-8 bg-netflix-red rounded-sm flex items-center justify-center">
+                <span className="text-white text-sm font-bold">U</span>
+              </div>
+            </div>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-lg text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
+              className="p-2 rounded text-netflix-light-gray hover:text-white transition-all duration-200"
             >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isMenuOpen ? (
@@ -98,15 +105,15 @@ function Navbar() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-800">
-            <div className="flex flex-col space-y-2">
+          <div className="md:hidden py-4 border-t border-netflix-medium-gray animate-slide-down">
+            <div className="flex flex-col space-y-3">
               <Link 
                 to="/" 
                 onClick={() => setIsMenuOpen(false)}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`px-4 py-3 text-sm font-medium transition-all duration-200 ${
                   isActive('/') 
-                    ? 'bg-red-600 text-white' 
-                    : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                    ? 'text-white font-bold bg-netflix-medium-gray rounded' 
+                    : 'text-netflix-light-gray hover:text-white'
                 }`}
               >
                 Home
@@ -114,10 +121,10 @@ function Navbar() {
               <Link 
                 to="/search" 
                 onClick={() => setIsMenuOpen(false)}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                className={`px-4 py-3 text-sm font-medium transition-all duration-200 ${
                   isActive('/search') 
-                    ? 'bg-red-600 text-white' 
-                    : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                    ? 'text-white font-bold bg-netflix-medium-gray rounded' 
+                    : 'text-netflix-light-gray hover:text-white'
                 }`}
               >
                 Search
@@ -125,16 +132,16 @@ function Navbar() {
               <Link 
                 to="/watchlist" 
                 onClick={() => setIsMenuOpen(false)}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center justify-between ${
+                className={`px-4 py-3 text-sm font-medium transition-all duration-200 flex items-center justify-between ${
                   isActive('/watchlist') 
-                    ? 'bg-red-600 text-white' 
-                    : 'text-gray-300 hover:text-white hover:bg-gray-800'
+                    ? 'text-white font-bold bg-netflix-medium-gray rounded' 
+                    : 'text-netflix-light-gray hover:text-white'
                 }`}
               >
-                <span>Watchlist</span>
+                <span>My List</span>
                 {watchlist.length > 0 && (
-                  <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {watchlist.length}
+                  <span className="bg-netflix-red text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                    {watchlist.length > 9 ? '9+' : watchlist.length}
                   </span>
                 )}
               </Link>
@@ -143,7 +150,7 @@ function Navbar() {
                   setDark(!dark)
                   setIsMenuOpen(false)
                 }}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-colors text-left"
+                className="px-4 py-3 text-sm font-medium text-netflix-light-gray hover:text-white transition-all duration-200 text-left"
               >
                 {dark ? '☀️ Light Mode' : '🌙 Dark Mode'}
               </button>
