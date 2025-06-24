@@ -8,14 +8,16 @@ import Watchlist from './pages/Watchlist'
 
 function App() {
   return (
-    <div className="bg-black text-white min-h-screen">
+    <div className="bg-gray-900 text-white min-h-screen">
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/search" element={<Search />} />
-        <Route path="/details/:id" element={<Details />} />
-        <Route path="/watchlist" element={<Watchlist />} />
-      </Routes>
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/details/:id" element={<Details />} />
+          <Route path="/watchlist" element={<Watchlist />} />
+        </Routes>
+      </main>
     </div>
   )
 }
