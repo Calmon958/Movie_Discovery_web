@@ -39,7 +39,8 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 func DetailsHandler(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 
-	tmdbURL := fmt.Sprintf("https://api.themoviedb.org/3/movie/%s?api_key=%s&append_to_response=credits", id, tmdbKey)
+	tmdbURL := fmt.Sprintf("https://api.themoviedb.org/3/movie/%s?api_key=%s&append_to_response=credits,videos", id, tmdbKey)
+
 
 	resp, err := http.Get(tmdbURL)
 	if err != nil {
