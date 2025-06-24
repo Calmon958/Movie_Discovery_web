@@ -81,111 +81,146 @@ function Home() {
   })
 
   return (
-    <div className="min-h-screen bg-gray-900">
-      {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-purple-900 via-blue-900 to-indigo-900 py-20">
-        <div className="absolute inset-0 bg-black opacity-50"></div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-            Discover Amazing <span className="text-red-500">Movies</span>
-          </h1>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Explore thousands of movies, create your watchlist, and never miss a great film again
-          </p>
-          
-          {/* Search Bar */}
-          <div className="max-w-2xl mx-auto">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search for movies, TV shows, actors..."
-                className="w-full px-6 py-4 text-lg rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500"
-              />
-              <button className="absolute right-2 top-2 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full transition-colors">
-                Search
+    <div className="min-h-screen bg-netflix-black">
+      {/* Netflix-style Hero Section */}
+      <div className="relative h-screen flex items-center justify-start overflow-hidden">
+        {/* Hero Background Image */}
+        <div className="absolute inset-0">
+          <img 
+            src="https://image.tmdb.org/t/p/original/qJ2tW6WMUDux911r6m7haRef0WH.jpg" 
+            alt="Hero Background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-netflix-black via-netflix-black/80 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-netflix-black/80 via-transparent to-transparent"></div>
+          <div className="absolute inset-0 netflix-hero-gradient"></div>
+        </div>
+        
+        {/* Hero Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-2xl animate-fade-in-up">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-white mb-4 leading-tight netflix-text-shadow">
+              The Dark Knight
+            </h1>
+            <p className="text-lg sm:text-xl text-netflix-light-gray mb-6 leading-relaxed">
+              When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.
+            </p>
+            
+            <div className="flex items-center space-x-4 mb-8">
+              <div className="flex items-center space-x-2 netflix-glass px-3 py-1 rounded-full netflix-glow">
+                <span className="text-netflix-gold text-lg">⭐</span>
+                <span className="text-white font-bold">9.0</span>
+              </div>
+              <span className="text-netflix-light-gray netflix-glass px-3 py-1 rounded-full">2008</span>
+              <span className="text-netflix-light-gray netflix-glass px-3 py-1 rounded-full">2h 32m</span>
+            </div>
+            
+            {/* Netflix-style action buttons */}
+            <div className="flex space-x-4">
+              <button className="btn-netflix flex items-center hover-lift">
+                <span className="mr-2">▶</span>
+                Play
+              </button>
+              <button className="btn-netflix-secondary flex items-center hover-lift">
+                <span className="mr-2">+</span>
+                My List
+              </button>
+              <button className="btn-netflix-outline hover-lift">
+                ⓘ More Info
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Filters */}
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex flex-wrap gap-4 mb-8">
-          <input
-            type="number"
-            placeholder="Year"
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-            className="px-4 py-2 bg-gray-800 text-white rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500"
-          />
-          <select
-            value={minRating}
-            onChange={(e) => setMinRating(Number(e.target.value))}
-            className="px-4 py-2 bg-gray-800 text-white rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-red-500"
-          >
-            <option value={0}>All Ratings</option>
-            <option value={5}>5+ Stars</option>
-            <option value={6}>6+ Stars</option>
-            <option value={7}>7+ Stars</option>
-            <option value={8}>8+ Stars</option>
-          </select>
-          <button className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
-            Apply Filters
-          </button>
-        </div>
-
-        {/* Trending Section */}
-        <section className="mb-12">
-          <div className="flex items-center mb-6">
-            <h2 className="text-3xl font-bold text-white flex items-center">
-              <span className="text-red-500 mr-3">🔥</span>
-              Trending Now
+      {/* Netflix-style Content Rows */}
+      <div className="relative z-10 -mt-32 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+          
+          {/* Trending Now Row */}
+          <section className="animate-fade-in">
+            <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 netflix-text-shadow">
+              🔥 Trending Now
             </h2>
-          </div>
+            
+            {loading ? (
+              <div className="flex justify-center items-center py-20">
+                <div className="loading-dots">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+            ) : (
+              <div className="netflix-row">
+                {filteredMovies.slice(0, 10).map((item, index) => (
+                  <div key={item.id} className="flex-none w-48 sm:w-56 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                    <MovieCard item={item} />
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
 
-          {loading ? (
-            <div className="flex justify-center items-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-500"></div>
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-              {filteredMovies.slice(0, 12).map((item) => (
-                <MovieCard key={item.id} item={item} />
+          {/* Popular Movies Row */}
+          <section className="animate-fade-in">
+            <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 netflix-text-shadow">
+              🎬 Popular Movies
+            </h2>
+            <div className="netflix-row">
+              {popular.slice(0, 10).map((item, index) => (
+                <div key={`popular-${item.id}`} className="flex-none w-48 sm:w-56 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <MovieCard item={item} />
+                </div>
               ))}
             </div>
+          </section>
+
+          {/* Top Rated Row */}
+          <section className="animate-fade-in">
+            <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 netflix-text-shadow">
+              ⭐ Top Rated Movies
+            </h2>
+            <div className="netflix-row">
+              {topRated.slice(0, 10).map((item, index) => (
+                <div key={`toprated-${item.id}`} className="flex-none w-48 sm:w-56 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <MovieCard item={item} />
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Action Movies Row */}
+          <section className="animate-fade-in">
+            <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 netflix-text-shadow">
+              💥 Action Movies
+            </h2>
+            <div className="netflix-row">
+              {trending.slice(0, 10).map((item, index) => (
+                <div key={`action-${item.id}`} className="flex-none w-48 sm:w-56 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <MovieCard item={item} />
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Continue Watching Row (if user has watchlist) */}
+          {filteredMovies.length > 0 && (
+            <section className="animate-fade-in">
+              <h2 className="text-xl sm:text-2xl font-bold text-white mb-4 netflix-text-shadow">
+                🎯 Because You Watched...
+              </h2>
+              <div className="netflix-row">
+                {filteredMovies.slice(5, 15).map((item, index) => (
+                  <div key={`recommended-${item.id}`} className="flex-none w-48 sm:w-56 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                    <MovieCard item={item} />
+                  </div>
+                ))}
+              </div>
+            </section>
           )}
-        </section>
-
-        {/* Popular Movies */}
-        <section className="mb-12">
-          <div className="flex items-center mb-6">
-            <h2 className="text-3xl font-bold text-white flex items-center">
-              <span className="text-yellow-500 mr-3">⭐</span>
-              Popular Movies
-            </h2>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-            {popular.slice(0, 12).map((item) => (
-              <MovieCard key={`popular-${item.id}`} item={item} />
-            ))}
-          </div>
-        </section>
-
-        {/* Top Rated */}
-        <section>
-          <div className="flex items-center mb-6">
-            <h2 className="text-3xl font-bold text-white flex items-center">
-              <span className="text-green-500 mr-3">🏆</span>
-              Top Rated
-            </h2>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6">
-            {topRated.slice(0, 12).map((item) => (
-              <MovieCard key={`toprated-${item.id}`} item={item} />
-            ))}
-          </div>
-        </section>
+        </div>
       </div>
     </div>
   )
