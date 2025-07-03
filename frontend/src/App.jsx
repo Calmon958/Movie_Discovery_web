@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import ContentGrid from './components/ContentGrid';
+import NetflixStyleGrid from './components/NetflixStyleGrid';
 import Modal from './components/Modal';
 import { fetchTrending, searchContent, fetchDetails } from './api/tmdb';
 import './App.css';
@@ -8,10 +9,11 @@ import './App.css';
 function App() {
   const [content, setContent] = useState([]);
   const [watchlist, setWatchlist] = useState([]);
-  const [activeView, setActiveView] = useState('trending');
+  const [activeView, setActiveView] = useState('home');
   const [selectedItem, setSelectedItem] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isSearchMode, setIsSearchMode] = useState(false);
 
   // Load watchlist from localStorage on component mount
   useEffect(() => {
@@ -46,9 +48,13 @@ function App() {
   };
 
   const handleSearch = async (query) => {
-    if (!query.trim()) return;
+    if (!query.trim()) {
+      setIsSearchMode(false);
+      return;
+    }
     
     setLoading(true);
+    setIsSearchMode(true);
     try {
       const data = await searchContent(query);
       if (data && data.results) {
@@ -63,9 +69,8 @@ function App() {
 
   const handleNavigation = (view) => {
     setActiveView(view);
-    if (view === 'trending') {
-      loadTrending();
-    } else if (view === 'watchlist') {
+    setIsSearchMode(false);
+    if (view === 'watchlist') {
       setContent(watchlist);
     }
   };
@@ -126,12 +131,19 @@ function App() {
       />
       
       <main className="container">
-        <ContentGrid 
-          content={content}
-          onItemClick={handleItemClick}
-          loading={loading}
-          activeView={activeView}
-        />
+        {isSearchMode || activeView === 'watchlist' ? (
+          <ContentGrid 
+            content={content}
+            onItemClick={handleItemClick}
+            loading={loading}
+            activeView={activeView}
+          />
+        ) : (
+          <NetflixStyleGrid 
+            onItemClick={handleItemClick}
+            activeView={activeView}
+          />
+        )}
       </main>
 
       {isModalOpen && selectedItem && (
