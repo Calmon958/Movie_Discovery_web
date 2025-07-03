@@ -26,10 +26,22 @@ const Header = ({ activeView, onNavigation, onSearch }) => {
         <h1>FlixFinder</h1>
         <nav>
           <a 
-            className={activeView === 'trending' ? 'active' : ''}
-            onClick={() => handleNavClick('trending')}
+            className={activeView === 'home' ? 'active' : ''}
+            onClick={() => handleNavClick('home')}
           >
-            Trending
+            Home
+          </a>
+          <a 
+            className={activeView === 'movies' ? 'active' : ''}
+            onClick={() => handleNavClick('movies')}
+          >
+            Movies
+          </a>
+          <a 
+            className={activeView === 'tv' ? 'active' : ''}
+            onClick={() => handleNavClick('tv')}
+          >
+            TV Shows
           </a>
           <a 
             className={activeView === 'watchlist' ? 'active' : ''}
