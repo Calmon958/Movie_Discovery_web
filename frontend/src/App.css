@@ -115,6 +115,139 @@ main {
     gap: 1.5rem;
 }
 
+/* Netflix Style Grid */
+.netflix-style-grid {
+    width: 100%;
+    padding: 0;
+}
+
+.netflix-grid-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+.loading-spinner {
+    font-size: 1.2rem;
+    color: var(--text-secondary-color);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Content Row Styles */
+.content-row {
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.content-row-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    padding-left: 4%;
+}
+
+.content-row-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.content-row-scroll {
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    padding: 0 4%;
+}
+
+.content-row-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.content-row-items {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+}
+
+.content-row-item {
+    flex: 0 0 auto;
+    width: 200px;
+    transition: transform 0.3s ease;
+}
+
+.content-row-item:hover {
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+/* Scroll Buttons */
+.scroll-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: var(--text-color);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-button:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.scroll-button-left {
+    left: 0;
+}
+
+.scroll-button-right {
+    right: 0;
+}
+
+/* Content Card in Row */
+.content-row .content-card {
+    width: 100%;
+    height: 280px;
+    margin: 0;
+}
+
+.content-row .content-card img {
+    height: 200px;
+}
+
+.content-row .content-card-info {
+    padding: 0.5rem;
+}
+
+.content-row .content-card-info h3 {
+    font-size: 0.9rem;
+    line-height: 1.2;
+    margin-bottom: 0.25rem;
+}
+
+.content-row .content-card-info p {
+    font-size: 0.75rem;
+}
+
 .content-card {
     background-color: var(--light-dark-color);
     border-radius: 8px;
@@ -340,6 +473,29 @@ main {
     .modal-title {
         font-size: 1.8rem;
     }
+    
+    /* Netflix Style Responsive */
+    .content-row-item {
+        width: 150px;
+    }
+    
+    .content-row .content-card {
+        height: 240px;
+    }
+    
+    .content-row .content-card img {
+        height: 170px;
+    }
+    
+    .content-row-title {
+        font-size: 1.2rem;
+    }
+    
+    .scroll-button {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -349,6 +505,34 @@ main {
     
     .content-card img {
         height: 180px;
+    }
+    
+    /* Netflix Style Mobile */
+    .content-row-item {
+        width: 120px;
+    }
+    
+    .content-row .content-card {
+        height: 200px;
+    }
+    
+    .content-row .content-card img {
+        height: 140px;
+    }
+    
+    .content-row-title {
+        font-size: 1rem;
+        padding-left: 2%;
+    }
+    
+    .content-row-scroll {
+        padding: 0 2%;
+    }
+    
+    .scroll-button {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
     }
 }
 
